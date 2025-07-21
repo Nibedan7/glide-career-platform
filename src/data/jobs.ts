@@ -41,7 +41,8 @@ export const jobs: Job[] = [
     postedAt: "2024-03-15",
     deadline: "2024-04-15",
     applicants: 45,
-    status: "Open",
+    status: "active",
+    createdAt: "2024-01-10T00:00:00Z",
     benefits: ["Mentorship", "Flexible hours", "Learning budget", "Team events"]
   },
   {
