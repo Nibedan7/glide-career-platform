@@ -5,8 +5,10 @@ export interface Notification {
   title: string;
   message: string;
   isRead: boolean;
+  read?: boolean; // alias for isRead for compatibility
   createdAt: string;
   actionUrl?: string;
+  avatar?: string;
   metadata?: {
     jobId?: string;
     mentorId?: string;
@@ -22,6 +24,8 @@ export const notifications: Notification[] = [
     title: "Interview Scheduled",
     message: "Your interview for Frontend Developer Intern at TechFlow Solutions has been scheduled for March 20th at 2:00 PM.",
     isRead: false,
+    read: false,
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face",
     createdAt: "2024-03-18T10:30:00Z",
     actionUrl: "/student/applications",
     metadata: {

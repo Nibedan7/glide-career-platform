@@ -18,11 +18,11 @@ export default function CompanyDashboard() {
   const companyApplications = applications.filter(app => 
     companyJobs.some(job => job.id === app.jobId)
   );
-  const companyNotifications = notifications.filter(n => n.type === "job_application");
+  const companyNotifications = notifications.filter(n => n.type === "application");
 
   const analytics = {
     totalJobs: companyJobs.length,
-    activeJobs: companyJobs.filter(job => job.status === "active").length,
+    activeJobs: companyJobs.filter(job => job.status === "Open").length,
     totalApplications: companyApplications.length,
     responseRate: Math.round((companyApplications.filter(app => 
       app.status !== "pending").length / companyApplications.length) * 100) || 0

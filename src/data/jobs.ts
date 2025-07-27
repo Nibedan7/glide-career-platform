@@ -12,6 +12,7 @@ export interface Job {
   duration: string;
   stipend: string;
   postedAt: string;
+  createdAt: string;
   deadline: string;
   applicants: number;
   status: "Open" | "Closed";
@@ -39,10 +40,10 @@ export const jobs: Job[] = [
     duration: "3 months",
     stipend: "$4,000/month",
     postedAt: "2024-03-15",
+    createdAt: "2024-03-15T10:00:00Z",
     deadline: "2024-04-15",
     applicants: 45,
-    status: "active",
-    createdAt: "2024-01-10T00:00:00Z",
+    status: "Open",
     benefits: ["Mentorship", "Flexible hours", "Learning budget", "Team events"]
   },
   {
@@ -65,6 +66,7 @@ export const jobs: Job[] = [
     duration: "4 months",
     stipend: "$3,500/month",
     postedAt: "2024-03-10",
+    createdAt: "2024-03-10T09:00:00Z",
     deadline: "2024-04-10",
     applicants: 32,
     status: "Open",
@@ -90,6 +92,7 @@ export const jobs: Job[] = [
     duration: "6 months",
     stipend: "$5,000/month",
     postedAt: "2024-03-08",
+    createdAt: "2024-03-08T08:00:00Z",
     deadline: "2024-04-08",
     applicants: 67,
     status: "Open",
@@ -115,6 +118,7 @@ export const jobs: Job[] = [
     duration: "4 months",
     stipend: "$4,500/month",
     postedAt: "2024-03-12",
+    createdAt: "2024-03-12T11:00:00Z",
     deadline: "2024-04-12",
     applicants: 38,
     status: "Open",
@@ -140,6 +144,7 @@ export const jobs: Job[] = [
     duration: "5 months",
     stipend: "$4,200/month",
     postedAt: "2024-03-14",
+    createdAt: "2024-03-14T12:00:00Z",
     deadline: "2024-04-14",
     applicants: 29,
     status: "Open",

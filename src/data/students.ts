@@ -4,6 +4,7 @@ export interface Student {
   email: string;
   college: string;
   year: string;
+  major: string;
   skills: string[];
   bio: string;
   avatar: string;
@@ -31,6 +32,7 @@ export const students: Student[] = [
     email: "alex.chen@university.edu",
     college: "Stanford University",
     year: "Final Year",
+    major: "Computer Science",
     skills: ["React", "Node.js", "Python", "Machine Learning", "TypeScript"],
     bio: "Passionate full-stack developer with a strong interest in AI/ML. Currently working on a recommendation system for e-commerce platforms.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
@@ -64,6 +66,7 @@ export const students: Student[] = [
     email: "sarah.w@mit.edu",
     college: "MIT",
     year: "Third Year",
+    major: "Computer Science",
     skills: ["UI/UX Design", "Figma", "React", "CSS", "User Research"],
     bio: "Design-focused developer passionate about creating intuitive user experiences. Love combining aesthetics with functionality.",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612c9ba?w=400&h=400&fit=crop&crop=face",
@@ -91,6 +94,7 @@ export const students: Student[] = [
     email: "raj.patel@berkeley.edu",
     college: "UC Berkeley",
     year: "Second Year",
+    major: "Computer Engineering", 
     skills: ["Java", "Spring Boot", "Microservices", "Docker", "AWS"],
     bio: "Backend enthusiast focused on building scalable systems. Interested in cloud architecture and distributed systems.",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
@@ -116,6 +120,7 @@ export const students: Student[] = [
     email: "emily.j@caltech.edu",
     college: "Caltech",
     year: "Final Year",
+    major: "Data Science",
     skills: ["Data Science", "Python", "R", "SQL", "Tableau", "Machine Learning"],
     bio: "Data science enthusiast with experience in predictive modeling and statistical analysis. Passionate about turning data into insights.",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",

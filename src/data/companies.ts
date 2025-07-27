@@ -11,7 +11,11 @@ export const companies = [
     jobsPosted: 12,
     activeJobs: 8,
     totalApplications: 156,
-    status: "approved" as const
+    status: "approved" as const,
+    email: "contact@techcorp.com",
+    avatar: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=100&h=100&fit=crop&crop=center",
+    joinedAt: "2024-01-15",
+    role: "company" as const
   },
   {
     id: "2", 
@@ -25,7 +29,11 @@ export const companies = [
     jobsPosted: 6,
     activeJobs: 4,
     totalApplications: 89,
-    status: "approved"
+    status: "approved" as const,
+    email: "hr@innovatelabs.com", 
+    avatar: "https://images.unsplash.com/photo-1572021335469-31706a17aaef?w=100&h=100&fit=crop&crop=center",
+    joinedAt: "2024-02-01",
+    role: "company" as const
   },
   {
     id: "3",
@@ -39,6 +47,10 @@ export const companies = [
     jobsPosted: 15,
     activeJobs: 10,
     totalApplications: 234,
-    status: "pending"
+    status: "pending" as const,
+    email: "careers@greenenergy.com",
+    avatar: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=100&h=100&fit=crop&crop=center", 
+    joinedAt: "2024-03-01",
+    role: "company" as const
   }
 ];

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Filter, Send, Calendar, Users, BookOpen } from "lucide-react";
+import { Search, Filter, Send, Calendar, Users, BookOpen, Clock, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +17,7 @@ export default function MentorDashboard() {
   const [collegeFilter, setCollegeFilter] = useState("");
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   // Mock mentor data
   const mentorData = {
@@ -55,6 +56,14 @@ export default function MentorDashboard() {
     }
   ];
 
+  // Mock calendar sessions
+  const sessions = [
+    { id: 1, time: "10:00 AM", student: "Alex Chen", topic: "React Advanced Patterns", date: new Date(2024, 2, 20) },
+    { id: 2, time: "2:00 PM", student: "Sarah Williams", topic: "UI/UX Design Review", date: new Date(2024, 2, 20) },
+    { id: 3, time: "4:00 PM", student: "Raj Patel", topic: "System Design", date: new Date(2024, 2, 22) },
+    { id: 4, time: "11:00 AM", student: "Emily Johnson", topic: "Machine Learning Career Path", date: new Date(2024, 2, 25) },
+  ];
+
   // Filter students based on search and filters
   const filteredStudents = students.filter(student => {
     const matchesSearch = student.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -90,6 +99,68 @@ export default function MentorDashboard() {
       declined: "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400"
     };
     return variants[status as keyof typeof variants] || variants.pending;
+  };
+
+  const getDaysInMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  };
+
+  const getFirstDayOfMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  };
+
+  const navigateMonth = (direction: 'prev' | 'next') => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + (direction === 'next' ? 1 : -1), 1));
+  };
+
+  const getSessionsForDate = (day: number) => {
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    return sessions.filter(session => 
+      session.date.toDateString() === date.toDateString()
+    );
+  };
+
+  const renderCalendarGrid = () => {
+    const daysInMonth = getDaysInMonth(currentDate);
+    const firstDayOfMonth = getFirstDayOfMonth(currentDate);
+    const days = [];
+    
+    // Empty cells for days before the first day of the month
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      days.push(<div key={`empty-${i}`} className="h-24 p-1"></div>);
+    }
+    
+    // Days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const sessionsForDay = getSessionsForDate(day);
+      const isToday = new Date().toDateString() === new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString();
+      
+      days.push(
+        <div key={day} className={`h-24 p-1 border border-border/50 ${isToday ? 'bg-primary/10' : 'hover:bg-muted/50'}`}>
+          <div className={`text-sm font-medium mb-1 ${isToday ? 'text-primary font-bold' : 'text-foreground'}`}>
+            {day}
+          </div>
+          <div className="space-y-1">
+            {sessionsForDay.slice(0, 2).map(session => (
+              <div key={session.id} className="text-xs bg-primary/20 text-primary px-1 py-0.5 rounded truncate">
+                {session.time} - {session.student}
+              </div>
+            ))}
+            {sessionsForDay.length > 2 && (
+              <div className="text-xs text-muted-foreground">
+                +{sessionsForDay.length - 2} more
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+    
+    return days;
   };
 
   return (
@@ -145,7 +216,7 @@ export default function MentorDashboard() {
             title="Average Rating"
             value={mentorData.avgRating}
             change={{ value: 2, type: "increase", period: "vs last month" }}
-            icon={<Calendar className="h-4 w-4" />}
+            icon={<Star className="h-4 w-4" />}
             color="purple"
           />
           <AnalyticsWidget
@@ -297,6 +368,65 @@ export default function MentorDashboard() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Mock Calendar for Session Scheduling */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-5 w-5" />
+                Session Calendar
+              </div>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="sm" onClick={() => navigateMonth('prev')}>
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <span className="text-sm font-medium min-w-[120px] text-center">
+                  {formatDate(currentDate)}
+                </span>
+                <Button variant="outline" size="sm" onClick={() => navigateMonth('next')}>
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-7 gap-1 mb-4">
+              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                <div key={day} className="text-center text-sm font-medium text-muted-foreground p-2">
+                  {day}
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-7 gap-1">
+              {renderCalendarGrid()}
+            </div>
+            
+            {/* Upcoming Sessions */}
+            <div className="mt-6">
+              <h3 className="text-sm font-medium text-foreground mb-3">Upcoming Sessions</h3>
+              <div className="space-y-2">
+                {sessions.slice(0, 3).map(session => (
+                  <div key={session.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Clock className="h-4 w-4 text-muted-foreground" />
+                        <span className="font-medium">{session.time}</span>
+                      </div>
+                      <div className="text-sm">
+                        <span className="font-medium text-foreground">{session.student}</span>
+                        <span className="text-muted-foreground"> • {session.topic}</span>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      {session.date.toLocaleDateString()}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Invitation Modal */}
         <InvitationModal
